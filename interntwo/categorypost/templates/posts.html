@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+</head>
+<body>
+<style>
+        .check{
+        padding: 10px;
+        background-color: #d8e5e7;
+   }
+    .all-post h1{
+        font-size: 20px;
+        color: #16888f;
+        font-weight: 600;
+        margin-bottom: 10px;
+        font-family: 'Oswald', sans-serif;
+        margin-top:20px
+    }
+    .all-post p{
+        color: #727772;
+        margin-top: 5px;
+        font-family: 'Kodchasan', sans-serif;
+    }
+    .all-post h3{
+        color: #2b542c;
+        margin-bottom: 10px;
+        font-weight: 600;
+        font-family: 'Oswald', sans-serif;
+    }
+    .all-post h3{
+        font-size: 17px;
+        margin-top: 5px;
+        margin-bottom: 22px;
+        font-family: 'Oswald', sans-serif;
+    }
+    col{
+        margin: 0;
+    }
+    h1,h3{
+        margin: 0;
+        padding: 0;
+    }
+    .all-post{
+        margin-top: 28px;
+    }
+    .check{
+        margin-top: 10px;
+        background-color: #f8f7f7;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 21px;
+}
+    .check h3 i{
+    padding-right:3px
+    }
+    .check:hover{
+    background-color:#efefed;
+    }
+    .check img{
+    height:60px;
+    width:60px
+    }
+    .check span{
+    font-size:33px;
+     color: #40b4bb;
+    padding-left: 16px;
+    }
+    .search{
+        margin-top: 60px;
+        background-color: #1a7c85;
+        padding: 10px;
+        color: #fff;
+        padding-top: 15px;
+    }
+    .btn{
+        color: #000;
+    }
+    .butto{
+        color: #fff;
+    }
+    .search p{
+        font-size: 18px;
+        font-family: 'Oswald', sans-serif;
+    }
+    .search_bar{
+        padding-left: 184px;
+    }
+    .hom p a{
+    color:#fff
+    }
+</style>
+
+       <div class="search">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 hom">
+                    <p><a href="{% url 'home' %} "><i class="fas fa-home"></i>Home</a></p>
+                </div>
+                <div class="col-sm-6 search_bar">
+                    <form class="form-inline" method="get" action="">
+                        <input type="text" class="form-control mr-sm-2" name="q" value="{{ request.GET.query }}" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                      </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="all-post">
+        <div class="container">
+                 <h1>Total number of Posts: {{ post|length }}</h1>
+
+            <div class="row">
+                {% for post in post %}
+
+                    <div class="col-sm-3">
+                    <div class="check">
+                        <img src="{{ post.logo.url }}" alt="">
+                         <span>{{post.comp_name}}</span>
+                        <h1><a href="#">Job : {{  post.Posting_title }}
+                        </a></h1>
+                        {{ post.date }}
+                        <h3>{{ post.job_type }}</h3>
+
+                        <!--<button type="button" class="btn btn-primary butto">Detail</button>-->
+                    </div>
+                    </div>
+                {% endfor %}
+               
+            </div>
+        </div>
+    </div>
+
+</section>
+<div class="container">
+    {% if post.has_other_pages %}
+  <ul class="pagination">
+    {% if post.has_previous %}
+      <li><a href="?page={{ post.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in post.paginator.page_range %}
+      {% if post.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if post.has_next %}
+      <li><a href="?page={{ post.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+</div>
+</body>
+</html>

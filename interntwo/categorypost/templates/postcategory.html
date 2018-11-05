@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+</head>
+<style>
+    .home h1{
+    color:green
+    }
+    .home p{
+    color:green;
+    margin-bottom:30px
+    }
+</style>
+<body>
+<div id="fb-root"></div>
+
+<nav class="navbar navbar-default menu">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{% url 'home' %}"><i class="fas fa-info"></i>nternship.Com</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="actives"><a href="{% url 'home' %} "><i class="fas fa-home"></i>Home</a></li>
+      <li><a href="{% url 'showprofile' user %} "><i class="fas fa-home"></i>{{user}} profile</a></li>
+
+        {% if not user.is_authenticated %}
+      <li><a href="{% url 'login' %}">Login</a></li>
+      <li><a href="{% url 'signup' %}">Signup</a></li>
+        {%else%}
+       <li><a  href="{% url 'logout' %}"> <i class="fas fa-sign-out-alt"></i>Log Out</a></li>
+        {%endif%}
+    </ul>
+  </div>
+</nav>
+{% block content %}
+
+<div class="container home">
+    {% if user.is_authenticated %}
+                     <p>loged in as {{ user.username }}</p>
+
+                     {% endif %}
+<table class="table table">
+        <tr>
+            <th>Job Category:</th>
+        </tr>
+         {% for type in type %}
+            <tr>
+
+                <td><a href="{% url 'posts' type.name %}">{{ type.name }}</a> </td>
+
+
+            </tr>
+        {% endfor %}
+    {% endblock %}
+    </table>
+</div>
+
+
+<!--<div class="container home">-->
+    <!--{% if user.is_authenticated %}-->
+                     <!--loged in as {{ request.user.username }}-->
+                     <!--{% else %}-->
+                     <!--<span>not loged in</span>-->
+                     <!--{% endif %}-->
+<!--<h1>Job Category:</h1>-->
+    <!--{% for type in type %}-->
+        <!--<p><a href="{% url 'posts' type.name %}">{{ type.name }}</a></p>-->
+    <!--{% endfor %}-->
+<!--</div>-->
+
+
+
+
+
+
+
+</body>
+</html>

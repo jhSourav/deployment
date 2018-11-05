@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+<body>
+
+<nav class="navbar navbar-default menu">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{% url 'home' %}"><i class="fas fa-info"></i>nternship.Com</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="actives"><a href="{% url 'home' %} "><i class="fas fa-home"></i>Home</a></li>
+      <li><a href="{% url 'profile' %} "><i class="fas fa-home"></i>Edit Profile</a></li>
+
+        {% if not user.is_authenticated %}
+      <li><a href="{% url 'login' %}">Login</a></li>
+      <li><a href="{% url 'signup' %}">Signup</a></li>
+        {%else%}
+       <li><a  href="{% url 'logout' %}"> <i class="fas fa-sign-out-alt"></i>Log Out</a></li>
+        {%endif%}
+    </ul>
+  </div>
+</nav>
+<div class="container">
+    <p>{{show.name}}</p>
+<p>{{show.email}}</p>
+<p>{{show.phone}}</p>
+<p>{{show.gender}}</p>
+<p>{{show.nationality}}</p>
+</div>
+
+
+
+
+
+</body>
+</html>

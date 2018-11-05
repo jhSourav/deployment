@@ -1,0 +1,12 @@
+{% extends 'postcategory.html'%}
+
+{% block content %}
+
+
+<div class="container">
+     <form method="POST" action="">
+         {{ form.as_p }}
+         <input  class="btn btn-primary" type="submit" value="submit"/>{% csrf_token %}
+     </form>
+</div>
+{% endblock %}
